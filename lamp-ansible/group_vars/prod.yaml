@@ -1,0 +1,6 @@
+env_name: production
+debug_mode: false
+mysql_db_name: prod_db
+mysql_user: prod_user
+mysql_password: prod_pass
+apache_port: 80

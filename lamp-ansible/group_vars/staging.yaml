@@ -1,0 +1,6 @@
+env_name: staging
+debug_mode: false
+mysql_db_name: staging_db
+mysql_user: staging_user
+mysql_password: staging_pass
+apache_port: 80

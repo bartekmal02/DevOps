@@ -1,0 +1,13 @@
+<VirtualHost *:{{ apache_port }}>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html/ansible_demo
+
+    <Directory /var/www/html/ansible_demo>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>

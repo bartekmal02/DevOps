@@ -1,0 +1,26 @@
+- name: Install MySQL server
+  package:
+    name: mysql-server
+    state: present
+
+- name: Ensure MySQL is running
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: Create database
+  mysql_db:
+    name: "{{ mysql_db_name }}"
+    state: present
+    login_user: "{{ mysql_login_user }}"
+    login_password: "{{ mysql_login_password }}"
+
+- name: Create MySQL user
+  mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
+    priv: "{{ mysql_db_name }}.*:ALL"
+    state: present
+    login_user: "{{ mysql_login_user }}"
+    login_password: "{{ mysql_login_password }}"

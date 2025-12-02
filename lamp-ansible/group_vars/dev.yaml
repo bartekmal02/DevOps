@@ -1,0 +1,10 @@
+env_name: development
+debug_mode: true
+mysql_db_name: my_ansible_db
+mysql_user: bartek_user
+mysql_password: bartek_password
+
+mysql_login_user: ansible_root
+mysql_login_password: "StrongPassword123!"
+
+apache_port: 8080

@@ -1,0 +1,3 @@
+mysql_db_name: my_ansible_db
+mysql_user: bartek_user
+mysql_password: bartek_password

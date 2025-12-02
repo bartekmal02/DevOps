@@ -1,0 +1,23 @@
+- name: Install Apache
+  package:
+    name: apache2
+    state: present
+  tags:
+    - web
+    - dev
+
+- name: Enable PHP module
+  command: a2enmod php8.3
+  notify: restart apache
+  tags:
+    - web
+    - dev
+
+- name: Deploy virtual host
+  template:
+    src: vhost.conf.j2
+    dest: /etc/apache2/sites-available/000-default.conf
+  notify: restart apache
+  tags:
+    - web
+    - dev

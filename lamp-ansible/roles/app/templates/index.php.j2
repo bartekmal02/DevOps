@@ -1,0 +1,9 @@
+<?php
+$mysqli = new mysqli("localhost", "{{ mysql_user }}", "{{ mysql_password }}", "{{ mysql_db_name }}");
+
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
+
+echo "Connected successfully to database {{ mysql_db_name }} as user {{ mysql_user }}.";
+?>

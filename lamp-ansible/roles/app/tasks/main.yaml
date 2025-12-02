@@ -1,0 +1,9 @@
+- name: Create application directory
+  file:
+    path: "{{ web_dir }}"
+    state: directory
+
+- name: Deploy PHP page
+  template:
+    src: index.php.j2
+    dest: "{{ web_dir }}/index.php"

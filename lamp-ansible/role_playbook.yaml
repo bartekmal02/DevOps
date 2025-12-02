@@ -1,0 +1,16 @@
+- hosts: localhost
+  become: yes
+  connection: local
+
+  vars:
+    ansible_python_interpreter: "/home/vboxuser/lamp-ansible/venv/bin/python"
+
+  vars_files:
+    - "group_vars/{{ env }}.yaml"
+
+  roles:
+    - base
+    - php
+    - web
+    - database
+    - app
