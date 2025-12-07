@@ -1,0 +1,5 @@
+php_packages:
+  - php
+  - php-mysql
+  - libapache2-mod-php
+php_version: "8.3"

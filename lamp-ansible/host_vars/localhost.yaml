@@ -1,0 +1,9 @@
+# host_vars/localhost.yaml
+
+apache_listen_port: 80
+apache_server_name: "localhost"
+
+db_host: "127.0.0.1"
+db_port: 3306
+
+app_root: "/var/www/ansible_demo"

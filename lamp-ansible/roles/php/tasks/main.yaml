@@ -1,7 +1,23 @@
-- name: Install PHP and required packages
-  package:
-    name:
-      - php
-      - php-mysql
-      - libapache2-mod-php
-    state: present
+- block:
+    - name: Install PHP and required packages
+      package:
+        name: "{{ php_packages }}"
+        state: present
+      tags:
+        - php
+        - dev
+
+    - name: Ensure PHP module is enabled in Apache
+      command: "a2enmod php{{ php_version }}"
+      notify: restart apache
+      tags:
+        - php
+        - dev
+
+  rescue:
+    - debug:
+        msg: "Failed to install PHP or enable PHP module in Apache."
+
+  always:
+    - debug:
+        msg: "PHP role finished execution."

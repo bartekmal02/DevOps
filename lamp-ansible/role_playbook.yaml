@@ -1,9 +1,10 @@
 - hosts: localhost
   become: yes
+  become_method: sudo
   connection: local
 
   vars:
-    ansible_python_interpreter: "/home/vboxuser/lamp-ansible/venv/bin/python"
+    ansible_python_interpreter: "/usr/bin/python3"
 
   vars_files:
     - "group_vars/{{ env }}.yaml"

@@ -7,4 +7,5 @@ mysql_password: bartek_password
 mysql_login_user: ansible_root
 mysql_login_password: "StrongPassword123!"
 
+mysql_login_host: 127.0.0.1
 apache_port: 8080

@@ -1,4 +1,16 @@
-- name: Update all packages
-  package:
-    name: "*"
-    state: latest
+- block:
+    - name: Update all system packages
+      package:
+        name: "{{ update_packages }}"
+        state: latest
+      tags:
+        - base
+        - dev
+
+  rescue:
+    - debug:
+        msg: "Failed to update system packages."
+
+  always:
+    - debug:
+        msg: "Base role finished execution."

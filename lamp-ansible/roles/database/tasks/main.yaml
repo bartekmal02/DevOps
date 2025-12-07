@@ -1,26 +1,49 @@
-- name: Install MySQL server
-  package:
-    name: mysql-server
-    state: present
+- block:
+    - name: Install MySQL server
+      package:
+        name: mysql-server
+        state: present
+      tags:
+        - database
+        - dev
 
-- name: Ensure MySQL is running
-  service:
-    name: mysql
-    state: started
-    enabled: yes
+    - name: Ensure MySQL service is running
+      service:
+        name: mysql
+        state: started
+        enabled: yes
+      tags:
+        - database
+        - dev
 
-- name: Create database
-  mysql_db:
-    name: "{{ mysql_db_name }}"
-    state: present
-    login_user: "{{ mysql_login_user }}"
-    login_password: "{{ mysql_login_password }}"
+    - name: Create MySQL database
+      mysql_db:
+        name: "{{ mysql_db_name }}"
+        state: present
+        login_user: "{{ mysql_login_user }}"
+        login_password: "{{ mysql_login_password }}"
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+      tags:
+        - database
+        - dev
 
-- name: Create MySQL user
-  mysql_user:
-    name: "{{ mysql_user }}"
-    password: "{{ mysql_password }}"
-    priv: "{{ mysql_db_name }}.*:ALL"
-    state: present
-    login_user: "{{ mysql_login_user }}"
-    login_password: "{{ mysql_login_password }}"
+    - name: Create MySQL user
+      mysql_user:
+        name: "{{ mysql_user }}"
+        password: "{{ mysql_password }}"
+        priv: "{{ mysql_db_name }}.*:ALL"
+        state: present
+        login_user: "{{ mysql_login_user }}"
+        login_password: "{{ mysql_login_password }}"
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+      tags:
+        - database
+        - dev
+
+  rescue:
+    - debug:
+        msg: "Failed to install MySQL or create database/user."
+
+  always:
+    - debug:
+        msg: "Database role finished execution."

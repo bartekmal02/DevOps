@@ -1,9 +1,24 @@
-- name: Create application directory
-  file:
-    path: "{{ web_dir }}"
-    state: directory
+- block:
+    - name: Create application directory
+      file:
+        path: "{{ web_dir }}"
+        state: directory
+      tags:
+        - app
+        - dev
 
-- name: Deploy PHP page
-  template:
-    src: index.php.j2
-    dest: "{{ web_dir }}/index.php"
+    - name: Deploy PHP page
+      template:
+        src: index.php.j2
+        dest: "{{ web_dir }}/index.php"
+      tags:
+        - app
+        - dev
+
+  rescue:
+    - debug:
+        msg: "Failed to create app directory or deploy PHP page."
+
+  always:
+    - debug:
+        msg: "App role finished execution."
