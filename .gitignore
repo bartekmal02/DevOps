@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# Śmieci systemowe i IDE
+.vscode/
+.DS_Store
+*.log
+
+# Dane wrażliwe
+.env
