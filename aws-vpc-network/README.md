@@ -1,40 +1,50 @@
-# AWS Infrastructure Automation - Task 2 (VPC & HA)
+# AWS Serverless Infrastructure Automation (VPC & ECS Fargate)
 
 ## 📋 Project Description
-This repository contains a professional Python-based automation tool for provisioning AWS network infrastructure. The project is built with **SOLID principles**, focusing on high availability, observability, and idempotency. It serves as a foundation for serverless deployments like ECS Fargate.
+This repository contains a professional Python-based automation tool for provisioning a complete, serverless container stack on AWS. Using **Boto3**, it automates the deployment of a high-availability network and an **ECS Fargate** cluster running an Nginx web server. 
+
+The project strictly follows **SOLID principles**, ensuring the code is extensible and maintainable. All infrastructure is designed to be **idempotent**, meaning the scripts can be run repeatedly without causing resource duplication or deployment errors.
 
 ## 🚀 Key Features
-* **High Availability (HA):** Automated creation of a VPC with two public subnets across different Availability Zones (`eu-central-1a` and `eu-central-1b`).
-* **Idempotency:** Advanced state-checking logic ensures that re-running the script won't create duplicate resources or cause errors.
-* **Structured Logging (JSON):** All execution logs are output in JSON format, making them ready for professional log management systems.
-* **Observability:** Each execution session is tagged with a unique **Correlation ID (UUID)** for easy tracking and debugging.
-* **Safe Cleanup:** Implements a graceful `--cleanup` mechanism that respects AWS resource dependencies (Internet Gateway -> Subnets -> VPC).
+* **Infrastructure as Code (IaC):** Full automation of AWS resources using Python, replacing manual AWS Console management.
+* **Networking (VPC & HA):** Automated creation of a VPC with two public subnets across different Availability Zones for high availability.
+* **Compute (ECS Fargate):** Serverless container orchestration including Cluster creation, Task Definition registration, and Service management.
+* **Automated Routing:** Dynamic configuration of Route Tables and Internet Gateways to ensure public connectivity.
+* **Structured Logging (JSON):** Professional logging with unique **Correlation IDs (UUID)** for tracing execution across sessions.
+* **Dependency-Aware Cleanup:** Intelligent destruction of resources in the correct order (Service -> Cluster -> Security Group -> Network) to avoid AWS dependency violations.
 
 ## 📂 Project Structure
-Zgodnie z wymaganiami projektowymi, kod został podzielony na moduły:
-* `main.py` – Punkt wejścia (CLI) z implementacją loggera JSON i obsługą UUID.
-* `services/` – Logika biznesowa zarządzania siecią AWS (NetworkManager).
-* `exceptions/` – Katalog dedykowany dla własnych klas błędów (np. `NetworkError`).
-* `settings.py` – Centralny plik konfiguracyjny (Region, Profile, CIDR).
+Following the project requirements, the code is modularized:
+* `main.py` – Entry point (CLI) with JSON logger implementation and UUID tracing.
+* `services/` – Business logic for AWS resources:
+    * `network_service.py` – Manages VPC, Subnets, IGW, and Security Groups.
+    * `ecs_service.py` – Manages ECS Clusters, Tasks, and Fargate Services.
+* `exceptions/` – Dedicated directory for custom error classes grouped by domain.
+* `settings.py` – Central configuration (AWS Region, Profiles, CIDR, and Container specs).
 
 ## 🛠 Setup & Usage
 1.  **Initial Setup:**
-    Upewnij się, że posiadasz profil AWS o nazwie `infra-mgr` w pliku `~/.aws/credentials`.
+    Ensure you have an AWS profile configured (default: `infra-mgr`) in your `~/.aws/credentials`.
 
-2.  **Deploy Network:**
+2.  **Deploy Full Stack:**
     ```bash
-    python main.py up
+    python3 main.py up
     ```
+    *This will provision the VPC, setup networking, and launch the Nginx container.*
 
-3.  **Safe Cleanup:**
+3.  **Teardown Infrastructure:**
     ```bash
-    python main.py --cleanup
+    python3 main.py down
+    # or
+    python3 main.py --cleanup
     ```
+    *This safely removes all resources in the correct order to ensure a clean account state.*
 
 ## 🏗 Technical Standards
-* **Language:** Wszystkie docstringi są w języku angielskim; komentarze techniczne w języku polskim.
-* **Error Handling:** Wyjątki są pogrupowane w dedykowanym katalogu `exceptions`.
-* **Best Practices:** Zastosowano zasady SOLID (extensible, not modifiable) oraz zasadę Least Privilege dla Security Groups.
+* **SOLID Principles:** Code is designed to be extensible but not modifiable, separating concerns between networking and orchestration.
+* **Language Policy:** All docstrings are written in English; technical comments in Polish.
+* **Error Handling:** Custom exceptions are grouped in the `exceptions/` directory for precise error tracking.
+* **Formatting:** Clean and scannable code structure with clear separation of configuration, imports, and logic.
 
 ---
 *Created as part of AWS Cloud Infrastructure Tasks - 2026*
