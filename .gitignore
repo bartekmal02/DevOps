@@ -1,22 +1,20 @@
-# Python bytecode
-__pycache__/
-*.py[cod]
-*$py.class
+# Pliki robocze Terraforma (pluginy i binaria)
+**/.terraform/
 
-# Virtual Environment
-venv/
-env/
-.env/
+# Pliki blokady providerów
+**/.terraform.lock.hcl
 
-# IDE files
-.vscode/
-.idea/
+# Dane wrazliwe, hasla itp. (pliki stanu infrastruktury)
+**/*.tfstate
+**/*.tfstate.*
 
-# AWS & Credentials (safety first)
-.aws/
-credentials
-*.pem
+# Dane wrazliwe, hasla itp. (pliki ze zmiennymi użytkownika)
+**/*.tfvars
+**/*.tfvars.json
 
-# OS generated files
-.DS_Store
-Thumbs.db
+# Pliki tymczasowe i cache Terragrunta
+**/.terragrunt-cache/
+
+# Logi i kopie zapasowe
+*.log
+**/*.backup
