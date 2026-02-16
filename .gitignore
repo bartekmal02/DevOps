@@ -1,0 +1,20 @@
+# Pliki robocze Terraforma (pluginy i binaria)
+**/.terraform/
+
+# Pliki blokady providerów
+**/.terraform.lock.hcl
+
+# Dane wrazliwe, hasla itp. (pliki stanu infrastruktury)
+**/*.tfstate
+**/*.tfstate.*
+
+# Dane wrazliwe, hasla itp. (pliki ze zmiennymi użytkownika)
+**/*.tfvars
+**/*.tfvars.json
+
+# Pliki tymczasowe i cache Terragrunta
+**/.terragrunt-cache/
+
+# Logi i kopie zapasowe
+*.log
+**/*.backup
